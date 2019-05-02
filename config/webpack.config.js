@@ -8,7 +8,7 @@ const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
-const getCSSModuleLocalIdent = require('./react-dev-utils/getCSSModuleLocalIdent');
+const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
 const paths = require('./paths');
 const postcssNormalize = require('postcss-normalize');
 
@@ -23,6 +23,10 @@ const sassModuleRegex = /\.module\.(scss|sass)$/;
 module.exports = (env) => {
   const isProduction = env === 'production',
     isDevelopment = env === 'development';
+
+  const publicPath = isProduction
+    ? paths.servedPath
+    : isDevelopment && '/';
 
   // common function to get style loaders
   const getStyleLoaders = (cssOptions, preProcessor, isElement) => {

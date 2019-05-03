@@ -78,9 +78,9 @@ function tryGitInit(appPath) {
 
 module.exports = function(
   appPath,
+  template,
   appName,
   originalDirectory,
-  template
 ) {
   const ownPath = path.dirname(
     require.resolve(path.join(__dirname, '..', 'package.json'))

@@ -35,6 +35,8 @@ module.exports = (webpackEnv) => {
     ? publicPath.slice(0, -1)
     : isDevelopment && '';
 
+  const browsersList = paths.browserslist;
+
   // Get environment variables to inject into our app.
   const env = getClientEnvironment(publicUrl);
 
@@ -171,8 +173,8 @@ module.exports = (webpackEnv) => {
                 options: {
                   babelrc: false,
                   configFile: false,
-                  presets: ['@babel/preset-env', '@babel/preset-typescript'],
-                  plugins: ["@babel/plugin-syntax-dynamic-import", "@babel/plugin-transform-regenerator", 'jsx-dom-expressions'],
+                  presets: [['@babel/preset-env', {targets: browsersList}], '@babel/preset-typescript'],
+                  plugins: ["@babel/plugin-syntax-dynamic-import", 'jsx-dom-expressions'],
                   cacheDirectory: true,
                   cacheCompression: isProduction,
                   compact: isProduction,
@@ -188,7 +190,7 @@ module.exports = (webpackEnv) => {
                 babelrc: false,
                 configFile: false,
                 presets: ['@babel/preset-env', '@babel/preset-typescript'],
-                plugins: ["@babel/plugin-syntax-dynamic-import", "@babel/plugin-transform-regenerator", 'jsx-dom-expressions'],
+                plugins: ["@babel/plugin-syntax-dynamic-import", 'jsx-dom-expressions'],
                 cacheDirectory: true,
                 cacheCompression: isProduction,
                 compact: isProduction,
@@ -202,8 +204,8 @@ module.exports = (webpackEnv) => {
                 options: {
                   babelrc: false,
                   configFile: false,
-                  presets: ['@babel/preset-env'],
-                  plugins: ["@babel/plugin-syntax-dynamic-import", "@babel/plugin-transform-regenerator", 'jsx-dom-expressions'],
+                  presets: [['@babel/preset-env', {targets: browsersList}]],
+                  plugins: ["@babel/plugin-syntax-dynamic-import", 'jsx-dom-expressions'],
                   cacheDirectory: true,
                   cacheCompression: isProduction,
                   compact: isProduction,
@@ -218,8 +220,8 @@ module.exports = (webpackEnv) => {
               options: {
                 babelrc: false,
                 configFile: false,
-                presets: ['@babel/preset-env'],
-                plugins: ["@babel/plugin-syntax-dynamic-import", "@babel/plugin-transform-regenerator", 'jsx-dom-expressions'],
+                presets: [['@babel/preset-env', {targets: browsersList}]],
+                plugins: ["@babel/plugin-syntax-dynamic-import", 'jsx-dom-expressions'],
                 cacheDirectory: true,
                 cacheCompression: isProduction,
                 compact: isProduction,
@@ -233,8 +235,7 @@ module.exports = (webpackEnv) => {
                 babelrc: false,
                 configFile: false,
                 compact: false,
-                presets: ['@babel/preset-env'],
-                plugins: ["@babel/plugin-syntax-dynamic-import", "@babel/plugin-transform-regenerator"],
+                presets: [['@babel/preset-env', {targets: browsersList}]],
                 cacheDirectory: true,
                 cacheCompression: isProduction,
                 sourceMaps: false,

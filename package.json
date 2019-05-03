@@ -1,7 +1,7 @@
 {
   "name": "solid-scripts",
   "description": "No configuration CLI tools to bootstrap Solid applications.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Ryan Carniato",
   "license": "MIT",
   "bin": {
@@ -31,6 +31,7 @@
     "jest": "^24.7.1",
     "jest-environment-jsdom-fourteen": "^0.1.0",
     "jest-watch-typeahead": "^0.3.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-flexbugs-fixes": "^4.1.0",
     "postcss-loader": "^3.0.0",
     "postcss-normalize": "^7.0.1",

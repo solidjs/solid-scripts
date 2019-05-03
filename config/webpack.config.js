@@ -8,6 +8,7 @@ const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
+const getClientEnvironment = require('./env');
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
 const paths = require('./paths');
 const postcssNormalize = require('postcss-normalize');
@@ -20,13 +21,22 @@ const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
 
-module.exports = (env) => {
-  const isProduction = env === 'production',
-    isDevelopment = env === 'development';
+module.exports = (webpackEnv) => {
+  const isProduction = webpackEnv === 'production',
+    isDevelopment = webpackEnv === 'development';
 
   const publicPath = isProduction
     ? paths.servedPath
     : isDevelopment && '/';
+
+  const shouldUseRelativeAssetPaths = publicPath === './';
+
+  const publicUrl = isProduction
+    ? publicPath.slice(0, -1)
+    : isDevelopment && '';
+
+  // Get environment variables to inject into our app.
+  const env = getClientEnvironment(publicUrl);
 
   // common function to get style loaders
   const getStyleLoaders = (cssOptions, preProcessor, isElement) => {
@@ -79,7 +89,7 @@ module.exports = (env) => {
   };
 
   return {
-    mode: env,
+    mode: webpackEnv,
     bail: isProduction,
     devtool: isProduction ? false : isDevelopment && 'cheap-module-source-map',
     entry: paths.appIndexJs,
@@ -351,11 +361,8 @@ module.exports = (env) => {
       ),
       // Makes some environment variables available in index.html.
       // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
-      // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-      // In production, it will be an empty string unless you specify "homepage"
-      // in `package.json`, in which case it will be the pathname of that URL.
-      // In development, this will be an empty string.
       new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
+      new webpack.DefinePlugin(env.stringified),
       // This is necessary to emit hot updates (currently CSS and WebComponents only):
       isDevelopment && new webpack.HotModuleReplacementPlugin(),
       // Watcher doesn't work well if you mistype casing in a path so we use

@@ -6,7 +6,7 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
-const InterpolateHtmlPlugin = require('react-dev-utils/interpolate-html-plugin');
+const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const getClientEnvironment = require('./env');
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
@@ -172,7 +172,7 @@ module.exports = (webpackEnv) => {
                   babelrc: false,
                   configFile: false,
                   presets: ['@babel/preset-env', '@babel/preset-typescript'],
-                  plugins: ["@babel/plugin-syntax-dynamic-import", 'jsx-dom-expressions'],
+                  plugins: ["@babel/plugin-syntax-dynamic-import", "@babel/plugin-transform-regenerator", 'jsx-dom-expressions'],
                   cacheDirectory: true,
                   cacheCompression: isProduction,
                   compact: isProduction,
@@ -188,7 +188,7 @@ module.exports = (webpackEnv) => {
                 babelrc: false,
                 configFile: false,
                 presets: ['@babel/preset-env', '@babel/preset-typescript'],
-                plugins: ["@babel/plugin-syntax-dynamic-import", 'jsx-dom-expressions'],
+                plugins: ["@babel/plugin-syntax-dynamic-import", "@babel/plugin-transform-regenerator", 'jsx-dom-expressions'],
                 cacheDirectory: true,
                 cacheCompression: isProduction,
                 compact: isProduction,
@@ -203,7 +203,7 @@ module.exports = (webpackEnv) => {
                   babelrc: false,
                   configFile: false,
                   presets: ['@babel/preset-env'],
-                  plugins: ["@babel/plugin-syntax-dynamic-import", 'jsx-dom-expressions'],
+                  plugins: ["@babel/plugin-syntax-dynamic-import", "@babel/plugin-transform-regenerator", 'jsx-dom-expressions'],
                   cacheDirectory: true,
                   cacheCompression: isProduction,
                   compact: isProduction,
@@ -219,7 +219,7 @@ module.exports = (webpackEnv) => {
                 babelrc: false,
                 configFile: false,
                 presets: ['@babel/preset-env'],
-                plugins: ["@babel/plugin-syntax-dynamic-import", 'jsx-dom-expressions'],
+                plugins: ["@babel/plugin-syntax-dynamic-import", "@babel/plugin-transform-regenerator", 'jsx-dom-expressions'],
                 cacheDirectory: true,
                 cacheCompression: isProduction,
                 compact: isProduction,
@@ -234,6 +234,7 @@ module.exports = (webpackEnv) => {
                 configFile: false,
                 compact: false,
                 presets: ['@babel/preset-env'],
+                plugins: ["@babel/plugin-syntax-dynamic-import", "@babel/plugin-transform-regenerator"],
                 cacheDirectory: true,
                 cacheCompression: isProduction,
                 sourceMaps: false,

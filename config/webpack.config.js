@@ -7,11 +7,14 @@ const TerserPlugin = require('terser-webpack-plugin');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
+const  WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
-const getClientEnvironment = require('./env');
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
-const paths = require('./paths');
 const postcssNormalize = require('postcss-normalize');
+const safePostCssParser = require('postcss-safe-parser');
+
+const getClientEnvironment = require('./env');
+const paths = require('./paths');
 
 const useTypeScript = fs.existsSync(paths.appTsConfig);
 
@@ -112,32 +115,41 @@ module.exports = (webpackEnv) => {
     },
     optimization: {
       minimize: isProduction,
-      minimizer: [new TerserPlugin({
-        terserOptions: {
-          parse: {
-            ecma: 8,
+      minimizer: [
+        new TerserPlugin({
+          terserOptions: {
+            parse: {
+              ecma: 8,
+            },
+            compress: {
+              ecma: 6,
+              warnings: false,
+              comparisons: false,
+              inline: 2,
+            },
+            mangle: {
+              safari10: true,
+            },
+            output: {
+              ecma: 6,
+              comments: false,
+              ascii_only: true,
+            },
           },
-          compress: {
-            ecma: 6,
-            warnings: false,
-            comparisons: false,
-            inline: 2,
+          // Disabled on WSL (Windows Subsystem for Linux) due to an issue with Terser
+          // https://github.com/webpack-contrib/terser-webpack-plugin/issues/21
+          parallel: !isWsl,
+          cache: true,
+          sourceMap: false
+        }),
+        // This is only used in production mode
+        new OptimizeCSSAssetsPlugin({
+          cssProcessorOptions: {
+            parser: safePostCssParser,
+            map: false
           },
-          mangle: {
-            safari10: true,
-          },
-          output: {
-            ecma: 6,
-            comments: false,
-            ascii_only: true,
-          },
-        },
-        // Disabled on WSL (Windows Subsystem for Linux) due to an issue with Terser
-        // https://github.com/webpack-contrib/terser-webpack-plugin/issues/21
-        parallel: !isWsl,
-        cache: true,
-        sourceMap: false
-      })],
+        })
+      ],
       splitChunks: {
         chunks: 'all',
         name: false,
@@ -371,6 +383,11 @@ module.exports = (webpackEnv) => {
       // a plugin that prints an error when you attempt to do this.
       // See https://github.com/facebook/create-react-app/issues/240
       isDevelopment && new CaseSensitivePathsPlugin(),
+      // If you require a missing module and then `npm install` it, you still have
+      // to restart the development server for Webpack to discover it. This plugin
+      // makes the discovery automatic so you don't have to restart.
+      isDevelopment &&
+        new WatchMissingNodeModulesPlugin(paths.appNodeModules),
       isProduction &&
         new ExtractCssChunks({
           // Options similar to the same options in webpackOptions.output

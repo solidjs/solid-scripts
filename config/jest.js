@@ -6,7 +6,6 @@
 const fs = require('fs');
 const chalk = require('react-dev-utils/chalk');
 const paths = require('./paths');
-const babelJest = require('babel-jest');
 
 module.exports = (resolve, rootDir) => {
   // Use this instead of `paths.testsSetup` to avoid putting
@@ -32,11 +31,7 @@ module.exports = (resolve, rootDir) => {
     ],
     testEnvironment: 'jest-environment-jsdom-fourteen',
     transform: {
-      '^.+\\.(js|jsx|ts|tsx)$': babelJest.createTransformer({
-        presets: [require.resolve('babel-plugin-jsx-dom-expressions')],
-        babelrc: false,
-        configFile: false,
-      })
+      '^.+\\.(js|jsx|ts|tsx)$': resolve('./jest-transformer.js')
     },
     transformIgnorePatterns: [
       '[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$',

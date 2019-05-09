@@ -1,4 +1,3 @@
-import { r } from 'solid-js/dom';
 import './AppElement';
 
 it('renders without crashing', () => {

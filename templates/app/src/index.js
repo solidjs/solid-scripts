@@ -1,5 +1,4 @@
 import { createRoot } from 'solid-js';
-import { r } from 'solid-js/dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';

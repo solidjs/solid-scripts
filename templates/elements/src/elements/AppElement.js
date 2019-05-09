@@ -1,5 +1,4 @@
 import { customElement } from 'solid-element';
-import { r } from 'solid-js/dom';
 import logo from '../logo.svg';
 import style from './AppElement.css';
 

@@ -1,5 +1,4 @@
 import { createRoot } from 'solid-js';
-import { r } from 'solid-js/dom';
 import App from './App';
 
 it('renders without crashing', () => {

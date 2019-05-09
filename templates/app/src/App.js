@@ -1,4 +1,3 @@
-import { r } from 'solid-js/dom';
 import logo from './logo.svg';
 import './App.css';
 

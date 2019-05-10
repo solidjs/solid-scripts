@@ -1,7 +1,7 @@
 {
   "name": "solid-scripts",
   "description": "No configuration CLI tools to bootstrap Solid applications.",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "author": "Ryan Carniato",
   "license": "MIT",
   "bin": {
@@ -48,5 +48,8 @@
     "webpack-dev-server": "^3.3.1",
     "webpack-manifest-plugin": "^2.0.4",
     "workbox-webpack-plugin": "^4.3.0"
+  },
+  "resolutions": {
+    "webpack/acorn": "6.1.1"
   }
 }

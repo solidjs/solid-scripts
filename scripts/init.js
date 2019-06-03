@@ -91,7 +91,7 @@ module.exports = function(
   // Copy over some of the devDependencies
   appPackage.dependencies = appPackage.dependencies || {};
 
-  // const useTypeScript = appPackage.dependencies['typescript'] != null;
+  const useTypeScript = appPackage.dependencies['typescript'] != null;
 
   // Setup the script rules
   appPackage.scripts = {
@@ -99,6 +99,12 @@ module.exports = function(
     build: 'solid-scripts build',
     test: 'solid-scripts test',
   };
+
+  if (useTypeScript) {
+    appPackage.scripts.build = "tsc & " + appPackage.scripts.build;
+    appPackage.scripts.test = "tsc & " + appPackage.scripts.test;
+    appPackage.scripts["check-types"] = "tsc";
+  }
 
   // Setup the browsers list
   appPackage.browserslist = defaultBrowsers;
@@ -118,7 +124,6 @@ module.exports = function(
 
   // Copy the files for the user
   const templatePath = path.join(ownPath, `templates/${template || 'app'}`);
-  //  : path.join(ownPath, useTypeScript ? 'template-typescript' : 'template');
   if (fs.existsSync(templatePath)) {
     fs.copySync(templatePath, appPath);
   } else {

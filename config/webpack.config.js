@@ -186,8 +186,9 @@ module.exports = (webpackEnv) => {
                 options: {
                   babelrc: false,
                   configFile: false,
-                  presets: [['@babel/preset-env', {targets: browsersList}], '@babel/preset-typescript'],
-                  plugins: ["@babel/plugin-syntax-dynamic-import", ['jsx-dom-expressions', {moduleName: 'solid-js/dom'}]],
+                  presets: [['@babel/preset-env', { targets: browsersList }], '@babel/preset-typescript'],
+                  plugins: ["@babel/plugin-syntax-dynamic-import", "@babel/proposal-class-properties",
+                    "@babel/proposal-object-rest-spread", ['jsx-dom-expressions', { moduleName: 'solid-js/dom' }]],
                   cacheDirectory: true,
                   cacheCompression: isProduction,
                   compact: isProduction,
@@ -203,7 +204,8 @@ module.exports = (webpackEnv) => {
                 babelrc: false,
                 configFile: false,
                 presets: ['@babel/preset-env', '@babel/preset-typescript'],
-                plugins: ["@babel/plugin-syntax-dynamic-import", ['jsx-dom-expressions', {moduleName: 'solid-js/dom'}]],
+                plugins: ["@babel/plugin-syntax-dynamic-import", "@babel/proposal-class-properties",
+                  "@babel/proposal-object-rest-spread", ['jsx-dom-expressions', { moduleName: 'solid-js/dom' }]],
                 cacheDirectory: true,
                 cacheCompression: isProduction,
                 compact: isProduction,
@@ -217,8 +219,8 @@ module.exports = (webpackEnv) => {
                 options: {
                   babelrc: false,
                   configFile: false,
-                  presets: [['@babel/preset-env', {targets: browsersList}]],
-                  plugins: ["@babel/plugin-syntax-dynamic-import", ['jsx-dom-expressions', {moduleName: 'solid-js/dom'}]],
+                  presets: [['@babel/preset-env', { targets: browsersList }]],
+                  plugins: ["@babel/plugin-syntax-dynamic-import", ['jsx-dom-expressions', { moduleName: 'solid-js/dom' }]],
                   cacheDirectory: true,
                   cacheCompression: isProduction,
                   compact: isProduction,
@@ -233,8 +235,8 @@ module.exports = (webpackEnv) => {
               options: {
                 babelrc: false,
                 configFile: false,
-                presets: [['@babel/preset-env', {targets: browsersList}]],
-                plugins: ["@babel/plugin-syntax-dynamic-import", ['jsx-dom-expressions', {moduleName: 'solid-js/dom'}]],
+                presets: [['@babel/preset-env', { targets: browsersList }]],
+                plugins: ["@babel/plugin-syntax-dynamic-import", ['jsx-dom-expressions', { moduleName: 'solid-js/dom' }]],
                 cacheDirectory: true,
                 cacheCompression: isProduction,
                 compact: isProduction,
@@ -248,7 +250,7 @@ module.exports = (webpackEnv) => {
                 babelrc: false,
                 configFile: false,
                 compact: false,
-                presets: [['@babel/preset-env', {targets: browsersList}]],
+                presets: [['@babel/preset-env', { targets: browsersList }]],
                 cacheDirectory: true,
                 cacheCompression: isProduction,
                 sourceMaps: false,
@@ -358,19 +360,19 @@ module.exports = (webpackEnv) => {
           },
           isProduction
             ? {
-                minify: {
-                  removeComments: true,
-                  collapseWhitespace: true,
-                  removeRedundantAttributes: true,
-                  useShortDoctype: true,
-                  removeEmptyAttributes: true,
-                  removeStyleLinkTypeAttributes: true,
-                  keepClosingSlash: true,
-                  minifyJS: true,
-                  minifyCSS: true,
-                  minifyURLs: true,
-                },
-              }
+              minify: {
+                removeComments: true,
+                collapseWhitespace: true,
+                removeRedundantAttributes: true,
+                useShortDoctype: true,
+                removeEmptyAttributes: true,
+                removeStyleLinkTypeAttributes: true,
+                keepClosingSlash: true,
+                minifyJS: true,
+                minifyCSS: true,
+                minifyURLs: true,
+              },
+            }
             : undefined
         )
       ),
@@ -388,14 +390,14 @@ module.exports = (webpackEnv) => {
       // to restart the development server for Webpack to discover it. This plugin
       // makes the discovery automatic so you don't have to restart.
       isDevelopment &&
-        new WatchMissingNodeModulesPlugin(paths.appNodeModules),
+      new WatchMissingNodeModulesPlugin(paths.appNodeModules),
       isProduction &&
-        new ExtractCssChunks({
-          // Options similar to the same options in webpackOptions.output
-          // both options are optional
-          filename: 'static/css/[name].[contenthash:8].css',
-          chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
-        }),
+      new ExtractCssChunks({
+        // Options similar to the same options in webpackOptions.output
+        // both options are optional
+        filename: 'static/css/[name].[contenthash:8].css',
+        chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
+      }),
       // Generate a manifest file which contains a mapping of all asset filenames
       // to their corresponding output file so that tools can pick it up without
       // having to parse `index.html`.
@@ -403,7 +405,7 @@ module.exports = (webpackEnv) => {
         fileName: 'asset-manifest.json',
         publicPath: publicPath,
         generate: (seed, files) => {
-          const manifestFiles = files.reduce(function(manifest, file) {
+          const manifestFiles = files.reduce(function (manifest, file) {
             manifest[file.name] = file.path;
             return manifest;
           }, seed);
@@ -419,19 +421,19 @@ module.exports = (webpackEnv) => {
       // Generate a service worker script that will precache, and keep up to date,
       // the HTML & assets that are part of the Webpack build.
       isProduction &&
-        new WorkboxWebpackPlugin.GenerateSW({
-          clientsClaim: true,
-          exclude: [/\.map$/, /asset-manifest\.json$/],
-          importWorkboxFrom: 'cdn',
-          navigateFallback: publicUrl + '/index.html',
-          navigateFallbackBlacklist: [
-            // Exclude URLs starting with /_, as they're likely an API call
-            new RegExp('^/_'),
-            // Exclude URLs containing a dot, as they're likely a resource in
-            // public/ and not a SPA route
-            new RegExp('/[^/]+\\.[^/]+$'),
-          ],
-        })
+      new WorkboxWebpackPlugin.GenerateSW({
+        clientsClaim: true,
+        exclude: [/\.map$/, /asset-manifest\.json$/],
+        importWorkboxFrom: 'cdn',
+        navigateFallback: publicUrl + '/index.html',
+        navigateFallbackBlacklist: [
+          // Exclude URLs starting with /_, as they're likely an API call
+          new RegExp('^/_'),
+          // Exclude URLs containing a dot, as they're likely a resource in
+          // public/ and not a SPA route
+          new RegExp('/[^/]+\\.[^/]+$'),
+        ],
+      })
     ].filter(Boolean),
     // Some libraries import Node modules but don't use them in the browser.
     // Tell Webpack to provide empty mocks for them so importing them works.

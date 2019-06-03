@@ -101,8 +101,6 @@ module.exports = function(
   };
 
   if (useTypeScript) {
-    appPackage.scripts.build = "tsc & " + appPackage.scripts.build;
-    appPackage.scripts.test = "tsc & " + appPackage.scripts.test;
     appPackage.scripts["check-types"] = "tsc";
   }
 

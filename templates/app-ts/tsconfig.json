@@ -12,7 +12,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "typeRoots": [
+      "./node_modules/@types",
+      "./node_modules/babel-plugin-jsx-dom-expressions",
+      "./types"
+    ]
   },
   "include": [
     "src"

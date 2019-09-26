@@ -1,11 +1,9 @@
-import { createRoot } from 'solid-js';
+import { render } from 'solid-js/dom';
 import App from './App';
 
 it('renders without crashing', () => {
-  createRoot(dispose => {
-    const div = document.createElement('div');
-    div.appendChild(<App />);
-    div.textContent = '';
-    dispose();
-  })
+  const div = document.createElement('div');
+  const dispose = render(App, div);
+  div.textContent = '';
+  dispose();
 });

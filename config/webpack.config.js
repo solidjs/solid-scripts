@@ -206,10 +206,37 @@ module.exports = webpackEnv => {
             },
             {
               test: /\.(ts|tsx)$/,
-              include: paths.appSrc,
+              include: paths.appComponents,
               exclude: paths.appElements,
               use: [
                 require.resolve("solid-hot-loader"),
+                {
+                  loader: require.resolve("babel-loader"),
+                  options: {
+                    babelrc: false,
+                    configFile: false,
+                    presets: [
+                      "@babel/preset-env",
+                      "solid",
+                      "@babel/preset-typescript"
+                    ],
+                    plugins: [
+                      "@babel/plugin-syntax-dynamic-import",
+                      "@babel/proposal-class-properties",
+                      "@babel/proposal-object-rest-spread"
+                    ],
+                    cacheDirectory: true,
+                    cacheCompression: isProduction,
+                    compact: isProduction
+                  }
+                }
+              ]
+            },
+            {
+              test: /\.(ts|tsx)$/,
+              include: paths.appSrc,
+              exclude: [paths.appElements, paths.appComponents],
+              use: [
                 {
                   loader: require.resolve("babel-loader"),
                   options: {

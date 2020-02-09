@@ -1,7 +1,7 @@
 {
   "name": "solid-scripts",
   "description": "No configuration CLI tools to bootstrap Solid applications.",
-  "version": "0.0.27",
+  "version": "0.0.28",
   "author": "Ryan Carniato",
   "license": "MIT",
   "bin": {
@@ -21,7 +21,7 @@
     "acorn": "6.1.1",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
-    "babel-preset-solid": "^0.16.2",
+    "babel-preset-solid": "^0.16.6",
     "case-sensitive-paths-webpack-plugin": "^2.2.0",
     "component-register-loader": "0.0.1",
     "css-loader": "^2.1.1",

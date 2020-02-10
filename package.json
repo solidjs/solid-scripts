@@ -1,7 +1,7 @@
 {
   "name": "solid-scripts",
   "description": "No configuration CLI tools to bootstrap Solid applications.",
-  "version": "0.0.28",
+  "version": "0.0.29",
   "author": "Ryan Carniato",
   "license": "MIT",
   "bin": {
@@ -44,7 +44,7 @@
     "react-app-polyfill": "^1.0.0",
     "react-dev-utils": "^9.0.0",
     "sass-loader": "^7.1.0",
-    "solid-hot-loader": "^0.0.1",
+    "solid-hot-loader": "^0.0.2",
     "style-loader": "^0.23.1",
     "terser-webpack-plugin": "^1.2.3",
     "to-string-loader": "^1.1.5",

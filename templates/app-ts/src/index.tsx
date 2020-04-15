@@ -1,6 +1,6 @@
 import { render } from 'solid-js/dom';
 import './index.css';
-import App from './components/App';
+import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 render(App, document.getElementById('root') as Node);

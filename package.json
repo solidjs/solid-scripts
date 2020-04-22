@@ -1,7 +1,7 @@
 {
   "name": "solid-scripts",
   "description": "No configuration CLI tools to bootstrap Solid applications.",
-  "version": "0.0.31",
+  "version": "0.0.32",
   "author": "Ryan Carniato",
   "license": "MIT",
   "bin": {
@@ -11,6 +11,7 @@
     "type": "git",
     "url": "https://github.com/ryansolid/solid-scripts"
   },
+  "types": "./types/solid-app.d.ts",
   "dependencies": {
     "@babel/core": "^7.9.0",
     "@babel/plugin-proposal-class-properties": "^7.8.3",

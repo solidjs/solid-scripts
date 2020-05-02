@@ -12,12 +12,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "preserve",
-    "typeRoots": [
-      "./node_modules/@types",
-      "./node_modules/babel-plugin-jsx-dom-expressions",
-      "./types"
-    ]
+    "jsx": "preserve"
   },
   "files": [
     "./node_modules/solid-scripts/types/solid-app.d.ts"

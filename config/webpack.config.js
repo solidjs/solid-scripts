@@ -389,7 +389,7 @@ module.exports = webpackEnv => {
       ]
     },
     plugins: [
-      new WorkerPlugin(),
+      new WorkerPlugin({sharedWorker: true}),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(

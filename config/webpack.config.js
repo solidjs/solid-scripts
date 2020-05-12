@@ -13,6 +13,7 @@ const getCSSModuleLocalIdent = require("react-dev-utils/getCSSModuleLocalIdent")
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const postcssNormalize = require("postcss-normalize");
 const safePostCssParser = require("postcss-safe-parser");
+const WorkerPlugin = require('worker-plugin');
 
 const getClientEnvironment = require("./env");
 const paths = require("./paths");
@@ -388,6 +389,7 @@ module.exports = webpackEnv => {
       ]
     },
     plugins: [
+      new WorkerPlugin(),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(

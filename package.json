@@ -1,7 +1,7 @@
 {
   "name": "solid-scripts",
   "description": "No configuration CLI tools to bootstrap Solid applications.",
-  "version": "0.0.37",
+  "version": "0.0.38",
   "author": "Ryan Carniato",
   "license": "MIT",
   "bin": {

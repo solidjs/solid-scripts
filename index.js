@@ -19,7 +19,7 @@ const spawn = require('react-dev-utils/crossSpawn');
 const args = process.argv.slice(2);
 
 const scriptIndex = args.findIndex(
-  x => x === 'build' || x === 'start' || x === 'test'
+  x => x === 'build' || x === 'start' || x === 'test' || x === 'eject'
 );
 const script = scriptIndex === -1 ? args[0] : args[scriptIndex];
 const nodeArgs = scriptIndex > 0 ? args.slice(0, scriptIndex) : [];
@@ -27,7 +27,8 @@ const nodeArgs = scriptIndex > 0 ? args.slice(0, scriptIndex) : [];
 switch (script) {
   case 'build':
   case 'start':
-  case 'test': {
+  case 'test':
+  case 'eject': {
     const result = spawn.sync(
       'node',
       nodeArgs
@@ -56,9 +57,7 @@ switch (script) {
   }
   default:
     console.log('Unknown script "' + script + '".');
-    console.log('Perhaps you need to update react-scripts?');
-    console.log(
-      'See: https://facebook.github.io/create-react-app/docs/updating-to-new-releases'
-    );
+    console.log('Perhaps you need to update solid-scripts?');
+    
     break;
 }

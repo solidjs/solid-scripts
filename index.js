@@ -16,6 +16,8 @@ process.on('unhandledRejection', err => {
 });
 
 const spawn = require('react-dev-utils/crossSpawn');
+const chalk = require('react-dev-utils/chalk');
+const { readJSONSync } = require('fs-extra');
 const args = process.argv.slice(2);
 
 const scriptIndex = args.findIndex(
@@ -23,6 +25,8 @@ const scriptIndex = args.findIndex(
 );
 const script = scriptIndex === -1 ? args[0] : args[scriptIndex];
 const nodeArgs = scriptIndex > 0 ? args.slice(0, scriptIndex) : [];
+
+const printScripts = () => console.log("\nScripts:\n\n  init\n  start\n  eject\n  build");
 
 switch (script) {
   case 'build':
@@ -55,9 +59,13 @@ switch (script) {
     process.exit(result.status);
     break;
   }
+  case undefined:
+    console.log(chalk.cyan("solid-scripts") + chalk.gray("@" + readJSONSync(require.resolve("./package.json")).version));
+    printScripts();
+    break;
   default:
     console.log('Unknown script "' + script + '".');
     console.log('Perhaps you need to update solid-scripts?');
-    
+    printScripts();
     break;
 }

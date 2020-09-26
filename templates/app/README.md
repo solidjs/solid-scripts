@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create Solid](https://github.com/ryansolid/create-solid).
+This project was bootstrapped with [Create Solid](https://github.com/ryansolid/create-solid). Create Solid is a Fork of Create React App.
 
 ## Available Scripts
 
@@ -20,7 +20,7 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 ### `npm run build`
 
 Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+It correctly bundles Solid in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.<br>
 Your app is ready to be deployed!

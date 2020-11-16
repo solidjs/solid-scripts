@@ -1,5 +1,5 @@
 import "solid-js";
-import { render } from 'solid-js/dom';
+import { render } from 'solid-js/web';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';

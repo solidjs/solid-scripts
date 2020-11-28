@@ -19,6 +19,8 @@ const paths = require("./paths");
 
 const useTypeScript = fs.existsSync(paths.appTsConfig);
 
+const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP === "true";
+
 // style files regexes
 const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
@@ -78,7 +80,7 @@ module.exports = webpackEnv => {
             // which in turn let's users customize the target behavior as per their needs.
             postcssNormalize()
           ],
-          sourceMap: false
+          sourceMap: isProduction ? shouldUseSourceMap : isDevelopment
         }
       }
     ].filter(Boolean);
@@ -86,7 +88,7 @@ module.exports = webpackEnv => {
       loaders.push({
         loader: require.resolve(preProcessor),
         options: {
-          sourceMap: false
+          sourceMap: isProduction ? shouldUseSourceMap : isDevelopment
         }
       });
     }
@@ -96,7 +98,11 @@ module.exports = webpackEnv => {
   return {
     mode: webpackEnv,
     bail: isProduction,
-    devtool: isProduction ? false : isDevelopment && "cheap-module-source-map",
+    devtool: isProduction 
+      ? shouldUseSourceMap 
+        ? "source-map" 
+        : false 
+      : isDevelopment && "cheap-module-source-map",
     entry: paths.appIndexJs,
     output: {
       path: isProduction ? paths.appBuild : undefined,
@@ -140,7 +146,7 @@ module.exports = webpackEnv => {
           // https://github.com/webpack-contrib/terser-webpack-plugin/issues/21
           parallel: !isWsl,
           cache: true,
-          sourceMap: false
+          sourceMap: shouldUseSourceMap
         }),
         // This is only used in production mode
         new OptimizeCSSAssetsPlugin({
@@ -286,7 +292,8 @@ module.exports = webpackEnv => {
                 presets: [["@babel/preset-env", { targets: browsersList }]],
                 cacheDirectory: true,
                 cacheCompression: isProduction,
-                sourceMaps: false
+                sourceMaps: isProduction ? shouldUseSourceMap : isDevelopment,
+                inputSourceMap: isProduction ? shouldUseSourceMap : isDevelopment
               }
             },
             // Custom Element CSS
@@ -297,7 +304,7 @@ module.exports = webpackEnv => {
               use: getStyleLoaders(
                 {
                   importLoaders: 1,
-                  sourceMap: false
+                  sourceMap: isProduction ? shouldUseSourceMap : isDevelopment
                 },
                 undefined,
                 true
@@ -310,7 +317,7 @@ module.exports = webpackEnv => {
               use: getStyleLoaders(
                 {
                   importLoaders: 2,
-                  sourceMap: false
+                  sourceMap: isProduction ? shouldUseSourceMap : isDevelopment
                 },
                 "sass-loader",
                 true
@@ -328,7 +335,7 @@ module.exports = webpackEnv => {
               exclude: cssModuleRegex,
               use: getStyleLoaders({
                 importLoaders: 1,
-                sourceMap: false
+                sourceMap: isProduction ? shouldUseSourceMap : isDevelopment
               }),
               sideEffects: true
             },
@@ -338,7 +345,7 @@ module.exports = webpackEnv => {
               test: cssModuleRegex,
               use: getStyleLoaders({
                 importLoaders: 1,
-                sourceMap: false,
+                sourceMap: isProduction ? shouldUseSourceMap : isDevelopment,
                 modules: true,
                 getLocalIdent: getCSSModuleLocalIdent
               })
@@ -352,7 +359,7 @@ module.exports = webpackEnv => {
               use: getStyleLoaders(
                 {
                   importLoaders: 2,
-                  sourceMap: false
+                  sourceMap: isProduction ? shouldUseSourceMap : isDevelopment
                 },
                 "sass-loader"
               ),
@@ -369,7 +376,7 @@ module.exports = webpackEnv => {
               use: getStyleLoaders(
                 {
                   importLoaders: 2,
-                  sourceMap: false,
+                  sourceMap: isProduction ? shouldUseSourceMap : isDevelopment,
                   modules: true,
                   getLocalIdent: getCSSModuleLocalIdent
                 },

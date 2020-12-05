@@ -37,6 +37,7 @@
     "jest-environment-jsdom-fourteen": "^1.0.1",
     "jest-watch-typeahead": "^0.6.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "postcss": "^8.1.8",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-loader": "^4.1.0",
     "postcss-normalize": "^9.0.0",

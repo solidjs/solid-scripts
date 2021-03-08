@@ -43,6 +43,8 @@ module.exports = (resolve, rootDir) => {
     ],
     modulePaths: [],
     moduleNameMapper: {
+      '^solid-js$': "solid-js/dist/solid.cjs",
+      '^solid-js/web$': "solid-js/web/dist/web.cjs",
       '^react-native$': 'react-native-web',
       '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
     },

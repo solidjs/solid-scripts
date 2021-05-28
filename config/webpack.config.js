@@ -35,9 +35,7 @@ module.exports = webpackEnv => {
 
   const shouldUseRelativeAssetPaths = publicPath === "./";
 
-  const publicUrl = isProduction
-    ? publicPath.slice(0, -1)
-    : isDevelopment && "";
+  const publicUrl = isProduction ? publicPath.slice(0, -1) : isDevelopment && "";
 
   const browsersList = paths.browserslist;
 
@@ -100,10 +98,10 @@ module.exports = webpackEnv => {
   return {
     mode: webpackEnv,
     bail: isProduction,
-    devtool: isProduction 
-      ? shouldUseSourceMap 
-        ? "source-map" 
-        : false 
+    devtool: isProduction
+      ? shouldUseSourceMap
+        ? "source-map"
+        : false
       : isDevelopment && "cheap-module-source-map",
     entry: paths.appIndexJs,
     output: {
@@ -168,7 +166,10 @@ module.exports = webpackEnv => {
       modules: ["node_modules", paths.appNodeModules],
       extensions: paths.moduleFileExtensions
         .map(ext => `.${ext}`)
-        .filter(ext => useTypeScript || !ext.includes("ts"))
+        .filter(ext => useTypeScript || !ext.includes("ts")),
+      alias: {
+        "solid-js$": isProduction ? "solid-js" : "solid-js/dev"
+      }
     },
     module: {
       strictExportPresence: true,
@@ -222,11 +223,7 @@ module.exports = webpackEnv => {
                   options: {
                     babelrc: false,
                     configFile: false,
-                    presets: [
-                      "@babel/preset-env",
-                      "solid",
-                      "@babel/preset-typescript"
-                    ],
+                    presets: ["@babel/preset-env", "solid", "@babel/preset-typescript"],
                     plugins: [
                       "@babel/plugin-syntax-dynamic-import",
                       "@babel/proposal-class-properties",
@@ -249,10 +246,7 @@ module.exports = webpackEnv => {
                   options: {
                     babelrc: false,
                     configFile: false,
-                    presets: [
-                      ["@babel/preset-env", { targets: browsersList }],
-                      "solid"
-                    ],
+                    presets: [["@babel/preset-env", { targets: browsersList }], "solid"],
                     plugins: ["@babel/plugin-syntax-dynamic-import"],
                     cacheDirectory: true,
                     cacheCompression: isProduction,
@@ -271,10 +265,7 @@ module.exports = webpackEnv => {
                   options: {
                     babelrc: false,
                     configFile: false,
-                    presets: [
-                      ["@babel/preset-env", { targets: browsersList }],
-                      "solid"
-                    ],
+                    presets: [["@babel/preset-env", { targets: browsersList }], "solid"],
                     plugins: ["@babel/plugin-syntax-dynamic-import"],
                     cacheDirectory: true,
                     cacheCompression: isProduction,
@@ -451,7 +442,7 @@ module.exports = webpackEnv => {
         fileName: "asset-manifest.json",
         publicPath: publicPath,
         generate: (seed, files) => {
-          const manifestFiles = files.reduce(function(manifest, file) {
+          const manifestFiles = files.reduce(function (manifest, file) {
             manifest[file.name] = file.path;
             return manifest;
           }, seed);

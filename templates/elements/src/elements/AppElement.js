@@ -13,7 +13,7 @@ const App = customElement('app-element', () =>
         </p>
         <a
           class="App-link"
-          href="https://github.com/ryansolid/solid"
+          href="https://github.com/solidjs/solid"
           target="_blank"
           rel="noopener noreferrer"
         >

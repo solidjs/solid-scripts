@@ -1,7 +1,7 @@
 {
   "name": "solid-scripts",
   "description": "No configuration CLI tools to bootstrap Solid applications.",
-  "version": "0.0.57",
+  "version": "0.0.58",
   "author": "Ryan Carniato",
   "license": "MIT",
   "bin": {
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ryansolid/solid-scripts"
+    "url": "https://github.com/solidjs/solid-scripts"
   },
   "types": "./types/solid-app.d.ts",
   "dependencies": {

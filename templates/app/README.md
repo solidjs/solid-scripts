@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create Solid](https://github.com/ryansolid/create-solid). Create Solid is a Fork of Create React App.
+This project was bootstrapped with [Create Solid](https://github.com/solidjs/create-solid). Create Solid is a Fork of Create React App.
 
 ## Available Scripts
 

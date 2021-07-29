@@ -169,8 +169,8 @@ module.exports = webpackEnv => {
         .filter(ext => useTypeScript || !ext.includes("ts")),
       alias: {
         "solid-js$": isProduction ? "solid-js" : "solid-js/dist/dev.js",
-        "solid-js/web$": isProduction ? "solid-js" : "solid-js/web/dist/dev.js",
-        "solid-js/store$": isProduction ? "solid-js" : "solid-js/store/dist/dev.js"
+        "solid-js/web$": isProduction ? "solid-js/web" : "solid-js/web/dist/dev.js",
+        "solid-js/store$": isProduction ? "solid-js/store" : "solid-js/store/dist/dev.js"
       }
     },
     module: {
